@@ -1,0 +1,46 @@
+{
+  "name": "api-testing-playwright",
+  "version": "1.0.0",
+  "description": "API Testing with Playwright",
+  "keywords": [
+    "api",
+    "testing",
+    "playwright"
+  ],
+  "type": "module",
+  "scripts": {
+    "format": "npx prettier --write .",
+    "lint": "eslint '**/*.{js,ts}'",
+    "lint:fix": "eslint --fix '**/*.{js,ts}'",
+    "test": "playwright test",
+    "test:install-deps": "playwright install chromium && playwright install-deps chromium",
+    "test:unit": "vitest run"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.2",
+    "@playwright/test": "1.57.0",
+    "@types/node": "25.0.1",
+    "@typescript-eslint/eslint-plugin": "8.49.0",
+    "@typescript-eslint/parser": "8.49.0",
+    "dayjs": "1.11.19",
+    "eslint": "9.39.2",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-playwright": "2.4.0",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "prettier": "3.7.4",
+    "typescript": "5.9.3",
+    "vitest": "4.0.3",
+    "zod": "4.1.13"
+  },
+  "engines": {
+    "node": ">= 24"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "npx prettier --write .",
+      "eslint '**/*.{js,ts}'"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "include": ["**/*.ts", "**/*.js"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["node", "@playwright/test"]
+  }
+}
