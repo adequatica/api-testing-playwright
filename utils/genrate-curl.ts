@@ -1,3 +1,5 @@
+import { hideApiKey } from './hide-api-key';
+
 export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   params?: Record<string, string | number>;
@@ -30,5 +32,5 @@ export function generateCurl(url: string, options: RequestOptions = {}): string 
 
   // Build final cURL command
   // -i option is handy for debugging
-  return `curl -i -X ${methodString} '${url}${queryString}' ${headerString} ${dataString}`.trim();
+  return `curl -i -X ${methodString} '${hideApiKey(`${url}${queryString}`)}' ${headerString} ${dataString}`.trim();
 }

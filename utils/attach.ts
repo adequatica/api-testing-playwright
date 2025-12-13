@@ -1,6 +1,7 @@
 import { APIResponse, test } from '@playwright/test';
 
 import { RequestOptions, generateCurl } from './genrate-curl';
+import { hideApiKey } from './hide-api-key';
 
 export const attachCurl = async (
   fullUrl: string,
@@ -8,7 +9,7 @@ export const attachCurl = async (
   requestParams?: RequestOptions,
 ) => {
   await test.info().attach(`cURL command ${fullUrl}`, {
-    body: generateCurl(fullUrl, requestParams),
+    body: generateCurl(hideApiKey(fullUrl), requestParams),
     contentType: 'text/plain',
   });
 };
@@ -21,7 +22,7 @@ export const attachResponse = async (
   const responseStatus = response ? `${response.status()} ${response.statusText()}` : 'N/A';
   const responseData = response ? await response.text() : '';
 
-  await test.info().attach(`Response ${responseStatus} ${fullUrl}`, {
+  await test.info().attach(`Response ${responseStatus} ${hideApiKey(fullUrl)}`, {
     body: responseData,
     contentType: 'text/plain',
   });

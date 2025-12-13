@@ -1,6 +1,8 @@
-# Technical Requirements for a Test Automation Framework for API Testing
+# Technical Requirements for a Test Automation Framework for End-to-End API Testing
 
-And How Playwright Satisfies These Requirements:
+[![Run Playwright E2E API Tests](https://github.com/adequatica/api-testing-playwright/actions/workflows/run-playwright-api-tests.yaml/badge.svg?branch=main)](https://github.com/adequatica/api-testing-playwright/actions/workflows/run-playwright-api-tests.yaml)
+
+And how Playwright satisfies these requirements:
 
 1. Use only standard components (yes, [Playwright](https://playwright.dev/)):
    - Easy to install dependencies (a single [NPM package](https://www.npmjs.com/package/playwright))
