@@ -1,6 +1,7 @@
 import { APIResponse, test } from '@playwright/test';
 import dayjs from 'dayjs';
 
+import { ENDPOINTS } from '../constants/endpoints';
 import { ONE_MINUTE, FIBONACCI } from '../constants/timeouts';
 import { schema as apodBodySchema } from '../schemas/apod';
 import { annotateUrl } from '../utils/annotate';
@@ -24,14 +25,15 @@ test.describe('Astronomy Picture of the Day', () => {
     },
     async ({ request }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let requestBody: any;
+      let responseBody: any;
 
       await test.step('Make HTTP request', async () => {
         // Example of polling HTTP request until 200 status code or defined body
         await expect
           .poll(
             async () => {
-              const fullUrl = `${BASE_URL}?${urlQuery}`;
+              // https://api.nasa.gov?date=2025-12-14&api_key=DEMO_KEY
+              const fullUrl = `${BASE_URL}${ENDPOINTS.apod}?${urlQuery}`;
 
               await annotateUrl(fullUrl);
               await attachCurl(fullUrl);
@@ -48,8 +50,8 @@ test.describe('Astronomy Picture of the Day', () => {
               const responseBodyJson = await response.json();
               expect(responseBodyJson, 'Response body should not be undefined').not.toBeUndefined();
 
-              requestBody = responseBodyJson;
-              return requestBody;
+              responseBody = responseBodyJson;
+              return responseBody;
             },
             {
               intervals: FIBONACCI,
@@ -60,7 +62,7 @@ test.describe('Astronomy Picture of the Day', () => {
       });
 
       await test.step('Validate schems', async () => {
-        expect(() => apodBodySchema.parse(requestBody), 'Response body should have valid schema').not.toThrowError();
+        expect(() => apodBodySchema.parse(responseBody), 'Response body should have valid schema').not.toThrowError();
       });
     },
   );

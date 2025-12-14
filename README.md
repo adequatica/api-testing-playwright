@@ -29,7 +29,7 @@ And how Playwright satisfies these requirements:
 5. Good test reports:
    - Good [build-in reporters](https://playwright.dev/docs/test-reporters#built-in-reporters) (especially [HTML one](https://playwright.dev/docs/running-tests#test-reports))
    - Adding your own debug information to the report ([test.info](https://playwright.dev/docs/api/class-test#test-info) method, even with [attachments](https://playwright.dev/docs/api/class-testinfo#test-info-attach)) — for API tests you definitely need [cURL](https://curl.se/docs/manpage.html) command for manual HTTP debugging
-   - Easy to add [Allure report](https://allurereport.org/docs/playwright/)
+   - Easy to add [Allure report](https://allurereport.org/docs/playwright/) (optional)
 
 ## Stack
 

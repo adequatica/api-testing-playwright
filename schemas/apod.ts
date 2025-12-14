@@ -2,13 +2,11 @@ import { z } from 'zod';
 
 // All properties are required by default
 export const schema = z.object({
-  copyright: z.string(),
   date: z.string(),
   explanation: z.string(),
-  hdurl: z.string(),
+  media_type: z.string(),
   // Custom validation logic via refinements https://zod.dev/?id=refine
-  media_type: z.string().refine((value) => value === 'image'),
-  service_version: z.string(),
+  service_version: z.string().refine((value) => value === 'v1'),
   title: z.string(),
   url: z.string(),
 });
