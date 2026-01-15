@@ -43,6 +43,7 @@ test.describe('Astronomy Picture of the Day', () => {
               // Retry on non 200 status codes
               if (response.status() != 200) {
                 await attachResponse(fullUrl, response);
+
                 return undefined;
               }
 
@@ -51,6 +52,7 @@ test.describe('Astronomy Picture of the Day', () => {
               expect(responseBodyJson, 'Response body should not be undefined').not.toBeUndefined();
 
               responseBody = responseBodyJson;
+
               return responseBody;
             },
             {

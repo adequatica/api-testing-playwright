@@ -10,6 +10,7 @@ export function hideApiKey(url: string): string {
 
     // Replace api_key value with asterisks
     parsedUrl.searchParams.set('api_key', '***');
+
     return parsedUrl.toString();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {

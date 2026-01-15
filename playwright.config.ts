@@ -10,8 +10,8 @@ export default defineConfig({
   },
   forbidOnly: !!CI,
   retries: CI ? 3 : 0,
-  workers: CI ? 1 : undefined,
-  maxFailures: CI ? 10 : undefined,
+  workers: 1,
+  maxFailures: CI ? 10 : 0,
   reporter: [
     ['list'],
     [

@@ -1,14 +1,35 @@
 {
-  "include": ["**/*.ts", "**/*.js"],
+  "include": ["**/*.ts", "**/*.js", "eslint.config.js"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    // Project Structure
     "rootDir": ".",
+    "forceConsistentCasingInFileNames": true,
+
+    // Modules
     "esModuleInterop": true,
     "allowJs": true,
-    "strict": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+
+    // Emit Options
     "noEmit": true,
+    "erasableSyntaxOnly": true,
+
+    // Type Checking
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedSideEffectImports": true,
+
+    // Type Definitions
     "types": ["node", "@playwright/test"]
   }
 }

@@ -1,68 +1,43 @@
 import js from '@eslint/js';
-import typescript from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
-import importPlugin from 'eslint-plugin-import';
+import { defineConfig } from 'eslint/config';
+import pluginImport from 'eslint-plugin-import';
 import playwright from 'eslint-plugin-playwright';
 import globals from 'globals';
+import ts from 'typescript-eslint';
 
-export default [
+export default defineConfig([
   {
-    ignores: ['playwright-report/**', 'test-results/**'],
-  },
-  // Base config for all files
-  {
-    files: ['**/*.js'],
-    ...js.configs.recommended,
+    files: ['**/*.{js,ts,tsx}'],
+    extends: [js.configs.recommended, ts.configs.recommended],
     plugins: {
-      import: importPlugin,
+      import: pluginImport,
     },
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'module',
       globals: {
         ...globals.browser,
         ...globals.node,
       },
-    },
-    rules: {
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      'no-unused-vars': 'warn',
-      'import/order': [
-        'error',
-        {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
-    },
-  },
-  // TypeScript files config
-  {
-    files: ['**/*.ts'],
-    languageOptions: {
-      parser: typescriptParser,
       parserOptions: {
-        project: './tsconfig.json',
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: {
-      '@typescript-eslint': typescript,
-      import: importPlugin,
-    },
     rules: {
-      ...typescript.configs['recommended'].rules,
-      semi: ['error', 'always'],
-      quotes: ['error', 'single', { avoidEscape: true }],
-      '@typescript-eslint/no-unused-vars': 'warn',
+      'newline-before-return': 'error',
+      // Import Order
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          groups: [
+            'builtin', // Node.js built-ins
+            'external', // npm packages
+            'internal', // Internal aliases
+            'parent', // ../
+            'sibling', // ./
+            'index', // ./index
+            'type', // TypeScript type imports
+          ],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',
@@ -73,10 +48,7 @@ export default [
     },
   },
   {
-    ...playwright.configs['flat/recommended'],
     files: ['tests/**'],
-    rules: {
-      ...playwright.configs['flat/recommended'].rules,
-    },
+    extends: [playwright.configs['flat/recommended']],
   },
-];
+]);
