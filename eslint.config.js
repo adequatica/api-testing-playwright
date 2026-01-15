@@ -25,7 +25,10 @@ export default defineConfig([
     },
     rules: {
       'newline-before-return': 'error',
-      // Import Order
+      '@typescript-eslint/ban-ts-comment': 'error',
+      '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-unused-vars': 'error',
+      // Import Order plugin
       'import/order': [
         'error',
         {
