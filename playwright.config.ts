@@ -1,12 +1,12 @@
 import { defineConfig } from '@playwright/test';
 
-import { ONE_MINUTE } from './constants/timeouts';
+import { PLAYWRIGHT_TIMEOUTS } from './constants/timeouts';
 import { CI, BASE_URL } from './utils/env';
 
 export default defineConfig({
-  timeout: ONE_MINUTE * 2,
+  timeout: PLAYWRIGHT_TIMEOUTS.defaultTestTimeout,
   expect: {
-    timeout: ONE_MINUTE,
+    timeout: PLAYWRIGHT_TIMEOUTS.defaultExpectTimeout,
   },
   forbidOnly: !!CI,
   retries: CI ? 3 : 0,
@@ -24,7 +24,7 @@ export default defineConfig({
   projects: [
     {
       use: {
-        trace: 'on-first-retry',
+        trace: 'retain-on-failure',
         ignoreHTTPSErrors: true,
         baseURL: BASE_URL,
       },

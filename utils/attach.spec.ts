@@ -2,7 +2,7 @@ import { APIResponse, test } from '@playwright/test';
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 
 import { attachCurl, attachResponse } from './attach';
-import { generateCurl, RequestOptions } from './genrate-curl';
+import { generateCurl, RequestOptions } from './generate-curl';
 
 vi.mock('@playwright/test', () => ({
   test: {
@@ -10,7 +10,7 @@ vi.mock('@playwright/test', () => ({
   },
 }));
 
-vi.mock('./genrate-curl', () => ({
+vi.mock('./generate-curl', () => ({
   generateCurl: vi.fn(),
 }));
 

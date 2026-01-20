@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { generateCurl } from './genrate-curl';
+import { escapeShellArg, buildQueryParamsString, generateCurl } from './generate-curl';
 
 describe('generateCurl', () => {
   it('should generate a simple GET request with just a URL', () => {
@@ -61,5 +61,49 @@ describe('generateCurl', () => {
     expect(result).toContain('https://api.example.com/endpoint?q=test&limit=10');
     expect(result).toContain("-H 'Content-Type: application/json'");
     expect(result).toContain('-d \'{"foo":"bar"}\'');
+  });
+});
+
+describe('escapeShellArg', () => {
+  it('should return the same string if no single quotes are present', () => {
+    const result = escapeShellArg('hello world');
+    expect(result).toBe('hello world');
+  });
+
+  it('should escape a single quote', () => {
+    const result = escapeShellArg("it's");
+    expect(result).toBe("it'\\''s");
+  });
+
+  it('should escape single quotes in JSON strings', () => {
+    const result = escapeShellArg('{"name":"O\'Brien"}');
+    expect(result).toBe('{"name":"O\'\\\'\'Brien"}');
+  });
+
+  it('should handle empty string', () => {
+    const result = escapeShellArg('');
+    expect(result).toBe('');
+  });
+});
+
+describe('buildQueryParamsString', () => {
+  it('should return empty string for empty object', () => {
+    const result = buildQueryParamsString({});
+    expect(result).toBe('');
+  });
+
+  it('should build query string with single parameter', () => {
+    const result = buildQueryParamsString({ foo: 'bar' });
+    expect(result).toBe('?foo=bar');
+  });
+
+  it('should build query string with multiple parameters', () => {
+    const result = buildQueryParamsString({ foo: 'bar', limit: 10, offset: 0 });
+    expect(result).toBe('?foo=bar&limit=10&offset=0');
+  });
+
+  it('should handle array values', () => {
+    const result = buildQueryParamsString({ tags: ['foo', 'bar'] });
+    expect(result).toBe('?tags=foo&tags=bar');
   });
 });
