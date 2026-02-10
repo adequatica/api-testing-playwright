@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 import { PLAYWRIGHT_TIMEOUTS } from './constants/timeouts';
-import { CI, BASE_URL } from './utils/env';
+import { BASE_URL, CI } from './utils/env';
 
 export default defineConfig({
   timeout: PLAYWRIGHT_TIMEOUTS.defaultTestTimeout,

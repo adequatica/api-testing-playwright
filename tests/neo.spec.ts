@@ -6,12 +6,11 @@ import { annotateUrl } from '../utils/annotate';
 import { attachCurl, attachResponse } from '../utils/attach';
 import { API_KEY, BASE_URL } from '../utils/env';
 import { expect } from '../utils/fixtures';
+import { querifyUrl } from '../utils/querify-url';
 
-const urlQueryParams = {
+const urlQuery = querifyUrl({
   api_key: API_KEY,
-};
-
-const urlQuery = new URLSearchParams(urlQueryParams).toString();
+});
 
 test.describe('Near Earth Object Web Service', () => {
   test(
@@ -42,7 +41,7 @@ test.describe('Near Earth Object Web Service', () => {
         responseNeoBrowseBody = responseBodyJson;
       });
 
-      await test.step('Validate Neo Browse schems', async () => {
+      await test.step('Validate Neo Browse schems', () => {
         expect(
           () => neoBrowseBodySchema.parse(responseNeoBrowseBody),
           'Response body should have valid schema',
@@ -67,7 +66,7 @@ test.describe('Near Earth Object Web Service', () => {
         responseNeoLookupBody = responseBodyJson;
       });
 
-      await test.step('Validate Neo Lookup schems', async () => {
+      await test.step('Validate Neo Lookup schems', () => {
         expect(
           () => neoLookupBodySchema.parse(responseNeoLookupBody),
           'Response body should have valid schema',

@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { escapeShellArg, buildQueryParamsString, generateCurl } from './generate-curl';
+import { buildQueryParamsString, escapeShellArg, generateCurl } from './generate-curl';
 
 describe('generateCurl', () => {
   it('should generate a simple GET request with just a URL', () => {

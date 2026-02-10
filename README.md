@@ -78,6 +78,12 @@ npm run test -- --grep @nasa
 npm run test -- --ui
 ```
 
+- Run unit tests for utils functions
+
+```shell
+npm run test:unit
+```
+
 ## Concepts
 
 - All interactions with environment variables are carried out in `/utils/env.ts` file

@@ -1,6 +1,6 @@
 import { APIResponse, test } from '@playwright/test';
 
-import { RequestOptions, generateCurl } from './generate-curl';
+import { generateCurl, RequestOptions } from './generate-curl';
 import { hideApiKey } from './hide-api-key';
 
 export const attachCurl = async (fullUrl: string, requestParams?: RequestOptions) => {

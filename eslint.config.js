@@ -28,6 +28,9 @@ export default defineConfig([
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/require-await': 'warn',
+      '@typescript-eslint/restrict-plus-operands': 'warn',
+
       // Import Order plugin
       'import/order': [
         'error',
@@ -46,6 +49,17 @@ export default defineConfig([
             order: 'asc',
             caseInsensitive: true,
           },
+        },
+      ],
+
+      // Sort named imports alphabetically
+      'sort-imports': [
+        'error',
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true, // Use import/order for declaration sorting
+          ignoreMemberSort: false, // Enforce alphabetical order of named imports
+          memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         },
       ],
     },

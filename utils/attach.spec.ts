@@ -1,5 +1,5 @@
 import { APIResponse, test } from '@playwright/test';
-import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 
 import { attachCurl, attachResponse } from './attach';
 import { generateCurl, RequestOptions } from './generate-curl';

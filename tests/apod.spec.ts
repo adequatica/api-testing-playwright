@@ -2,20 +2,19 @@ import { APIResponse, test } from '@playwright/test';
 import dayjs from 'dayjs';
 
 import { ENDPOINTS } from '../constants/endpoints';
-import { ONE_MINUTE, FIBONACCI } from '../constants/timeouts';
+import { FIBONACCI, ONE_MINUTE } from '../constants/timeouts';
 import { schema as apodBodySchema } from '../schemas/apod';
 import { annotateUrl } from '../utils/annotate';
 import { attachCurl, attachResponse } from '../utils/attach';
 import { API_KEY, BASE_URL } from '../utils/env';
 import { expect } from '../utils/fixtures';
+import { querifyUrl } from '../utils/querify-url';
 
-const urlQueryParams = {
+const urlQuery = querifyUrl({
   // https://day.js.org/docs/en/display/format
   date: dayjs().format('YYYY-MM-DD'),
   api_key: API_KEY,
-};
-
-const urlQuery = new URLSearchParams(urlQueryParams).toString();
+});
 
 test.describe('Astronomy Picture of the Day', () => {
   test(
@@ -63,7 +62,7 @@ test.describe('Astronomy Picture of the Day', () => {
           .not.toBeUndefined();
       });
 
-      await test.step('Validate schems', async () => {
+      await test.step('Validate schems', () => {
         expect(() => apodBodySchema.parse(responseBody), 'Response body should have valid schema').not.toThrowError();
       });
     },
