@@ -1,4 +1,6 @@
 name: Run Playwright E2E API Tests
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:
