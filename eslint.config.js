@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import pluginImport from 'eslint-plugin-import';
+import pluginImport from 'eslint-plugin-import-x';
 import playwright from 'eslint-plugin-playwright';
 import globals from 'globals';
 import ts from 'typescript-eslint';
@@ -28,8 +28,22 @@ export default defineConfig([
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/no-unsafe-argument': 'error',
+      '@typescript-eslint/no-unsafe-return': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
+
       '@typescript-eslint/require-await': 'warn',
       '@typescript-eslint/restrict-plus-operands': 'warn',
+
+      '@typescript-eslint/naming-convention': [
+        'error',
+        { selector: 'typeLike', format: ['PascalCase'] },
+        { selector: 'function', format: ['camelCase'], leadingUnderscore: 'allow' },
+        { selector: 'variable', types: ['function'], format: ['camelCase'], leadingUnderscore: 'allow' },
+      ],
 
       // Import Order plugin
       'import/order': [

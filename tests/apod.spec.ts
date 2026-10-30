@@ -1,5 +1,6 @@
 import { APIResponse, test } from '@playwright/test';
 import dayjs from 'dayjs';
+import { z } from 'zod';
 
 import { ENDPOINTS } from '../constants/endpoints';
 import { FIBONACCI, ONE_MINUTE } from '../constants/timeouts';
@@ -23,8 +24,7 @@ test.describe('Astronomy Picture of the Day', () => {
       tag: ['@nasa', '@apod'],
     },
     async ({ request }) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let responseBody: any;
+      let responseBody: z.infer<typeof apodBodySchema> | undefined;
 
       await test.step('Make HTTP request', async () => {
         // Example of polling HTTP request until 200 status code or defined body
@@ -47,7 +47,7 @@ test.describe('Astronomy Picture of the Day', () => {
               }
 
               await attachResponse(fullUrl, response);
-              const responseBodyJson = await response.json();
+              const responseBodyJson = (await response.json()) as unknown as z.infer<typeof apodBodySchema>;
               expect(responseBodyJson, 'Response body should not be undefined').not.toBeUndefined();
 
               responseBody = responseBodyJson;

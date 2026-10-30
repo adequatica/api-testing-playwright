@@ -6,7 +6,7 @@ export const expect = baseExpect.extend({
     const statusCode = receivedResponse.status();
     const pass = statusCode === expected;
 
-    let body = '';
+    let body: unknown;
     try {
       body = await receivedResponse.json();
     } catch {

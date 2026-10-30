@@ -1,4 +1,5 @@
 import { APIResponse, test } from '@playwright/test';
+import { z } from 'zod';
 
 import { ENDPOINTS } from '../constants/endpoints';
 import { schemaBrowse as neoBrowseBodySchema, schemaLookup as neoLookupBodySchema } from '../schemas/neo';
@@ -19,10 +20,8 @@ test.describe('Near Earth Object Web Service', () => {
       tag: ['@nasa', '@neo'],
     },
     async ({ request }) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let responseNeoBrowseBody: any;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let responseNeoLookupBody: any;
+      let responseNeoBrowseBody!: z.infer<typeof neoBrowseBodySchema>;
+      let responseNeoLookupBody!: z.infer<typeof neoLookupBodySchema>;
 
       await test.step('Make Neo Browse HTTP request', async () => {
         // https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
@@ -35,7 +34,7 @@ test.describe('Near Earth Object Web Service', () => {
         await expect(response, 'Should have 200 status code').toHaveStatusCode(200);
 
         await attachResponse(fullUrl, response);
-        const responseBodyJson = await response.json();
+        const responseBodyJson = (await response.json()) as unknown as z.infer<typeof neoBrowseBodySchema>;
         expect(responseBodyJson, 'Response body should not be undefined').not.toBeUndefined();
 
         responseNeoBrowseBody = responseBodyJson;
@@ -49,7 +48,7 @@ test.describe('Near Earth Object Web Service', () => {
       });
 
       await test.step('Make Neo Lookup HTTP request', async () => {
-        const firstNearEarthObject = responseNeoBrowseBody.near_earth_objects[0].id;
+        const firstNearEarthObject = (responseNeoBrowseBody.near_earth_objects[0] as unknown as { id: string }).id;
         // https://api.nasa.gov/neo/rest/v1/neo/2001620?api_key=DEMO_KEY
         const fullUrl = `${BASE_URL}${ENDPOINTS.neo}/${firstNearEarthObject}?${urlQuery}`;
 
@@ -60,7 +59,7 @@ test.describe('Near Earth Object Web Service', () => {
         await expect(response, 'Should have 200 status code').toHaveStatusCode(200);
 
         await attachResponse(fullUrl, response);
-        const responseBodyJson = await response.json();
+        const responseBodyJson = (await response.json()) as unknown as z.infer<typeof neoLookupBodySchema>;
         expect(responseBodyJson, 'Response body should not be undefined').not.toBeUndefined();
 
         responseNeoLookupBody = responseBodyJson;
