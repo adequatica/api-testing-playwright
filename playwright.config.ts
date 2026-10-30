@@ -9,7 +9,7 @@ export default defineConfig({
     timeout: PLAYWRIGHT_TIMEOUTS.defaultExpectTimeout,
   },
   forbidOnly: !!CI,
-  retries: CI ? 3 : 0,
+  retries: CI ? 2 : 0,
   workers: 1,
   maxFailures: CI ? 10 : 0,
   reporter: [

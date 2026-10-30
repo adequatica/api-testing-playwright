@@ -1,10 +1,9 @@
 import { hideApiKey } from './hide-api-key';
-
-type CurlQueryParams = Record<string, string | number | boolean | Array<string | number>>;
+import { querifyUrl, QueryParams } from './querify-url';
 
 export type RequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
-  params?: CurlQueryParams;
+  params?: QueryParams;
   headers?: Record<string, string>;
   data?: unknown;
   pretty?: boolean;
@@ -14,22 +13,8 @@ export function escapeShellArg(arg: string): string {
   return arg.replace(/'/g, "'\\''");
 }
 
-export function buildQueryParamsString(queryParams: CurlQueryParams): string {
-  const searchParams = new URLSearchParams();
-
-  for (const [key, value] of Object.entries(queryParams)) {
-    if (value === undefined || value === null) {
-      continue;
-    }
-
-    if (Array.isArray(value)) {
-      value.forEach((item) => searchParams.append(key, String(item)));
-    } else {
-      searchParams.append(key, String(value));
-    }
-  }
-
-  const queryString = searchParams.toString();
+export function buildQueryParamsString(queryParams: QueryParams): string {
+  const queryString = querifyUrl(queryParams);
 
   return queryString ? '?' + queryString : '';
 }
