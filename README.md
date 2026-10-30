@@ -37,9 +37,9 @@ A basic set of packages for API testing with Playwright:
 
 - [Playwright](https://playwright.dev/) — testing framework
 - [Zod](https://zod.dev/) — JSON schema validator
-- [Daj.js](https://day.js.org/) — minimalist date utility library
 - [Prettier](https://prettier.io) — code formatter
 - [ESLint](https://eslint.org/) — code linter
+- [Knip](https://knip.dev/) — code declutter
 - [Vitest](https://vitest.dev/) — unit testing framework (optional)
 
 Example API for testing: [NASA API](https://api.nasa.gov/)

@@ -2,7 +2,6 @@ import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import pluginImport from 'eslint-plugin-import-x';
 import playwright from 'eslint-plugin-playwright';
-import globals from 'globals';
 import ts from 'typescript-eslint';
 
 export default defineConfig([
@@ -14,10 +13,6 @@ export default defineConfig([
     },
     languageOptions: {
       ecmaVersion: 'latest',
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
